@@ -1,0 +1,27 @@
+<footer class="text-center-xs space--xs bg--dark">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-7">
+                <ul class="list-inline">
+                    <%= render 'layouts/nav_links' %>
+                    <%= render 'layouts/nav_links_for_auth' %>
+                </ul>
+            </div>
+            <div class="col-sm-5 text-right text-center-xs">
+                <ul class="social-list list-inline list--hover">
+                    <li><a href="#"><i class="socicon socicon-google icon icon--xs"></i></a></li>
+                    <li><a href="#"><i class="socicon socicon-twitter icon icon--xs"></i></a></li>
+                    <li><a href="#"><i class="socicon socicon-facebook icon icon--xs"></i></a></li>
+                    <li><a href="#"><i class="socicon socicon-instagram icon icon--xs"></i></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-7"> <span class="type--fine-print">© <span class="update-year"></span> Dinelyy</span>
+                <%= link_to 'Privacy Policy', page_path('privacy-policy'), class:"type--fine-print" %>
+                <%= link_to 'Terms of Service', page_path('terms-of-service'), class:"type--fine-print" %>
+            </div>
+            <div class="col-sm-5 text-right text-center-xs"> <a class="type--fine-print" href="mailto:support@chepri.com">support@dinelyy.com</a> </div>
+        </div>
+    </div>
+</footer>

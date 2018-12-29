@@ -1,0 +1,87 @@
+<div class="nav-container">
+        <div class="via-1503350514889" via="via-1503350514889" vio="Dinelyy - Horizontal">
+            <div class="bar bar--sm visible-xs">
+                    <div class="container">
+                            <div class="row">
+                                <div class="col-xs-3 col-sm-2">
+                                    <%= link_to root_path do %> <%= image_tag "dinelyy-web.png", class: "logo logo-dark"%><%= image_tag "dinelyy-web-wh.png", class: "logo logo-light"%> <% end %>
+                                </div>
+                                <div class="col-xs-9 col-sm-10 text-right">
+                                    <a href="#" class="hamburger-toggle" data-toggle-class="#menu1;hidden-xs hidden-sm"> <i class="icon icon--sm stack-interface stack-menu"></i> </a>
+                                </div>
+                            </div>
+                        </div>
+            </div>
+            <nav class="bar bar hidden-xs hidden-sm" data-scroll-class="100px:pos-fixed" id="menu1">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-2 hidden-xs hidden-sm">
+                        <div class="bar__module">
+                            <%= link_to root_path do %> <%= image_tag "dinelyy-web.png", class: "logo logo-dark"%> <%= image_tag "dinelyy-web-wh.png", class: "logo logo-light"%> <% end %>
+                        </div>
+                        <!--end module-->
+                    </div>
+                    <!--end columns-->
+                    <div class="col-md-10 text-right text-left-xs">
+                        <div class="bar__module">
+                            <ul class="menu-horizontal">
+                                <li class="dropdown">
+                                    <span class="dropdown__trigger">
+                                        <%= image_tag avatar_url(current_user), class: "avatar image--xxs"%>
+                                        <%= current_user.name %>
+                                    </span>
+                                        <div class="dropdown__container text-left" style="left: -525.703px;">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div class="dropdown__content col-md-2 col-sm-4" style="left: 525.703px;">
+                                                        <ul class="menu-vertical">
+                                                            <li class="">
+                                                                <%= link_to "Profile", current_user %>
+                                                               <%= render 'layouts/nav_links_for_auth' %>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <!--end dropdown content-->
+                                                </div>
+                                                <!--end row-->
+                                            </div>
+                                        </div>
+                                        <!--end dropdown container-->
+                                </li>
+                                <% if current_user.try(:admin?) or current_user.try(:owner?) %>
+                                <li>
+                                    <i class="icon-Chef-Hat2" style="vertical-align: top !important;"></i><%= link_to "My Restaurants", restaurants_path %>
+                                </li>
+                                <% end %>
+                                <% unless current_user.try(:admin?) or current_user.try(:owner?) %>
+                                <li>                  
+                                    <i class="icon-Plates" style="vertical-align: top !important;"></i> <%= link_to "Book Table", restaurants_path %>
+                                </li>
+                                <% end %>
+                                <li>                  
+                                    <i class="icon-Alarm" style="vertical-align: top !important;"></i> <%= link_to "Reservations", reservations_path %>
+                                </li>
+                                
+                            </ul>
+                        </div>
+                        <div class="bar__module">
+                                    <% if user_signed_in? %>
+                                    <%= link_to (destroy_user_session_path), :method =>'delete', :class => 'btn btn--sm type--uppercase' do %>
+                                        <span class="btn__text">Log Out<br></span>
+                                    <% end %>
+                                <% else %>
+                                    <%= link_to (new_user_session_path), :class => 'btn btn--sm type--uppercase' do %>
+                                        <span class="btn__text">Log In<br></span>
+                                    <% end %>
+                                <% end %>
+                            
+                        </div>
+                    </div>
+                    <!--end columns-->
+                </div>
+                <!--end of row-->
+            </div>
+            <!--end of container-->
+        </nav>
+        </div>
+    </div>

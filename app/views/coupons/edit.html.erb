@@ -1,0 +1,13 @@
+
+
+<%= render 'form', coupon: @coupon %>
+
+
+<% if @restaurant.user_id == current_user.try(:id) or current_user.try(:admin?) %>
+<div class="text-center">
+    <%= link_to [@restaurant, @coupon], method: :delete, data: { confirm: 'Are you sure? This can not be un-done.' }, :class=>"btn btn--primary btn--icon" do %>
+        <span class="btn__text"><i class="icon-Arrow-XLeft"></i>Delete Discount</span>
+    <% end %>
+    <p>Warning: This can not be undone.</p>
+</div>
+<% end %>

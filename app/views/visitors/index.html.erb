@@ -1,0 +1,303 @@
+<% unless user_signed_in? %>
+<%= render 'layouts/nav_bar_none' %>
+<% end %>
+        <section class="cover imagebg text-center height-100" data-overlay="6">
+            <div class="background-image-holder"><%= image_tag "getting-a-steak-dinner.jpeg" %></div>
+            <div class="container pos-vertical-center">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h1 style="font-family: Homemade Apple;">Book a table now, get great savings.</h1>
+                        <p class="lead"> Up to 50% off of your bill during select times.</p>
+                        <div class="boxed boxed--lg bg--white text-left">
+                            <form class="form--horizontal">
+                                <div class="col-sm-2">
+                                    <div class="input-number">
+                                        <input type="number" name="quantity" placeholder="Quantity" value="2" min="1" max="12" />
+                                        <div class="input-number__controls">
+                                            <span class="input-number__increase"><i class="stack-up-open"></i></span>
+                                            <span class="input-number__decrease"><i class="stack-down-open"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                     <div class="input-select"> 
+                                        <select>
+                                        <option selected="selected" value="Default">Today</option>
+                                        <option value="option1">Tomorrow</option>
+                                        <option value="option2">Mon, Oct. 13</option>
+                                        <option value="option3">Mon, Oct. 13</option>
+                                        <option value="option1">Mon, Oct. 13</option>
+                                        <option value="option2">Mon, Oct. 13</option>
+                                        <option value="option3">Mon, Oct. 13</option>
+                                        <option value="option1">Mon, Oct. 13</option>
+                                        <option value="option2">Mon, Oct. 13</option>
+                                        <option value="option3">Mon, Oct. 13</option>
+                                        <option value="option1">Mon, Oct. 13</option>
+                                        <option value="option2">Mon, Oct. 13</option>
+                                        <option value="option3">Mon, Oct. 13</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="input-select"> 
+                                    <select>
+                                      <option selected="selected" value="Default">Time?</option>
+                                      <option value="option1">5:00pm</option>
+                                      <option value="option2">5:30pm</option>
+                                      <option value="option3">6:00pm</option>
+                                      <option value="option1">6:30pm</option>
+                                      <option value="option2">7:00pm</option>
+                                      <option value="option3">7:30pm</option>
+                                      <option value="option1">8:00pm</option>
+                                      <option value="option2">8:30pm</option>
+                                      <option value="option3">9:00pm</option>
+                                      <option value="option1">9:30pm</option>
+                                      <option value="option2">10:00pm</option>
+                                      <option value="option3">10:30pm</option>
+                                    </select>
+                                  </div>
+                                </div>
+                                  <div class="col-sm-3"> <input type="text" name="location" placeholder="Location or Restaurant"> </div>
+                                <div class="col-sm-2"><%= link_to "Find a Table", restaurants_path, :class => 'btn btn--primary type--uppercase' %> </button> 
+                                
+                                </div>
+                            </form>
+                        </div>
+                        <p> or <%= link_to "browse all restaurants" , restaurants_path %></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="space--sm text-center bg--secondary">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-10 col-md-8">
+                        <h1>Top Restaurants, Best Deals.</h1>
+                        <p class="lead">Check out these top restaurants now accepting reservations.  Just click your favorite restaurant and let's reserve a table before it's gone.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="space--sm bg--secondary">
+            <div class="container">
+                <div class="row">
+                    <div class="masonry">
+                        <div class="masonry-filter-container text-center">
+                          <div class="masonry-filter-holder">
+                            <div class="masonry__filters" data-filter-all-text="All Categories">
+                              <ul>
+                                <li class="active" data-masonry-filter="*">All Cuisines</li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                          <div class="masonry__container">
+                            <% @restaurants.each do |restaurant| %>
+                                <% restaurant.cuisines.each do |cuisine| %>
+                            <%= link_to restaurant, :class => "block" do %> 
+                                <div class="col-sm-3 masonry__item" data-masonry-filter="<%= cuisine.name %>">
+                                    <div class="card card-1 boxed boxed--sm boxed--border">
+                                        <div class="card__top">
+                                            <div class="card__avatar">
+                                                <span>
+                                                    <strong><%= truncate(restaurant.name, :length => 21) %></strong>
+                                                </span>
+                                            </div>
+                                            <div class="card__meta">
+                                                <span class="color--primary"><strong>30% OFF</strong></span>
+                                            </p>
+                                            </div>
+                                        </div>
+                                        <div class="card__body">
+                                            <%= link_to restaurant do %>
+                                                <% restaurant.attachments.limit(1).each do |attachment| %>
+                                                <%=image_tag attachment.image, class: "border--round", :style => "height: 151px; width: 226px; object-fit: cover; overflow: hidden;" %>
+                                                <% end %>
+                                            <% end %>
+
+                                            <p><i class="material-icons">loyalty</i>
+                                                $<%= restaurant.cost_range_min %>-<%= restaurant.cost_range_max %> per person
+                                            </p>
+                                        </div>
+                                        <div class="card__bottom">
+                                            <ul class="list-inline">
+                                                <li>
+                                                    <div class="card__action">
+                                                        <a href="#">
+                                                        <!-- <i class="material-icons">loyalty</i> -->
+                                                            <span>$$</span>
+                                                        </a>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="card__action">
+                                                        <a href="#">
+                                                            <i class="material-icons">star</i>
+                                                            <span>4.5/5</span>
+                                                        </a>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="card__action">
+                                                        <a href="#">
+                                                        <span><%= truncate(cuisine.name, :length => 10) %></span>
+                                                        </a>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            <% end %>
+                            <% end %>
+                            <% end %>
+                          </div>
+                        <!--end masonry__container-->
+                        <div class="text-center">
+                            <%= link_to restaurants_path, :class => 'btn' do %>
+                            <span class="btn__text">Browse All Restaurants</span>
+                            <% end %>
+                        </div>
+                    </div>
+                    <!--end masonry-->
+                </div>
+                <!--end of row-->
+            </div>
+            <!--end of container-->
+        </section>
+        <section class="text-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-10 col-md-8">
+                        <h2>The smarter way to dine.</h2>
+                        <p class="lead">Book tables at the best restaurants in town and enjoy our exclusive offers.
+                          Dinelyy is the smart way to book tables online and save on dining out.</br><b>Here’s how it works:</b></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="text-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="block">
+                            <div class="feature boxed boxed--border border--round"> <i class="icon--lg icon-Magnifi-Glass2"></i> <span class="h5 color--primary"><p>FIND A RESTAURANT</p></span>
+                            <p>Search for your favorite restaurant by cuisine or location.</p></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="block">
+                            <div class="feature boxed boxed--border border--round"> <i class="icon--lg icon-Clock-4"></i> <span class="h5 color--primary"><p>SELECT A DAY & TIME</p></span>
+                              <p>Choose a time and date and book a table at the restaurant of your choice. For free.</p></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="block">
+                            <div class="feature boxed boxed--border border--round"> <i class="icon--lg icon-Checked-User"></i> <span class="h5 color--primary"><p>CHECK-IN AT RESTAURANT</p></span>
+                            <p>Use the Dinelyy app to check-in or show your reservation confirmation e-mail.</p></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="block">
+                            <div class="feature boxed boxed--border border--round"> <i class="icon--lg icon-Money-2"></i> <span class="h5 color--primary"><p>GET A DISCOUNT</p></span>
+                            <p>Get major entree discounts, up to half-off your bill, instantly saving.</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="text-center bg--secondary">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-10 col-md-8">
+                        <h2>Top Categories</h2>
+                        <p class="lead"> These are our most popular categories to date and we will be working with this to get this to say something special.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="text-center space--sm bg--secondary">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="feature feature-1">  <%=image_tag "restaurant-2.jpg" %>
+                            <div class="feature__body boxed boxed--border">
+                                <h4>American</h4>
+                                <p> 150 Restaurants </p>
+                                <a href="#"> </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="feature feature-1">  <%=image_tag "restaurant-2.jpg" %>
+                            <div class="feature__body boxed boxed--border">
+                                <h4>Organic</h4>
+                                <p> 150 Restaurants </p>
+                                <a href="#"> </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="feature feature-1"> <%=image_tag "restaurant-2.jpg" %>
+                            <div class="feature__body boxed boxed--border">
+                                <h4>Thai</h4>
+                                <p> 150 Restaurants </p>
+                                <a href="#"> </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="feature feature-1"> <%=image_tag "restaurant-2.jpg" %>
+                            <div class="feature__body boxed boxed--border">
+                                <h4>Chinese</h4>
+                                <p>150 Restaurants</p>
+                                <a href="#"> </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="feature feature-1"> <%=image_tag "restaurant-2.jpg" %>
+                            <div class="feature__body boxed boxed--border">
+                                <h4>Mexican</h4>
+                                <p> 150 Restaurants</p>
+                                <a href="#"> </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="feature feature-1"> <%=image_tag "restaurant-3.jpg" %>
+                            <div class="feature__body boxed boxed--border">
+                                <h4>Breakfast</h4>
+                                <p> 150 Restaurants</p>
+                                <a href="#"> </a> <span class="label">Hot</span> </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="switchable feature-large unpad--bottom imagebg" data-overlay="4">
+            <div class="background-image-holder"> <%=image_tag "restaurant-4.jpg" %> </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="switchable__text">
+                            <h2>Download our mobile app</h2>
+                            <p class="lead"> These are our most popular categories to date and we will be working with this to get this to say something special. App icons will probably go here.</p> <a href="#">Learn More »</a> </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-xs-12 text-center"> <%=image_tag "device-1.png" %> </div>
+                </div>
+            </div>
+        </section>
+        <section class="text-center bg--primary">
+            <div class="container">
+                <div class="row">
+                  <span class="text-center"><h3>Sign up to save your reservations.</h3></span>
+                    <form>
+                        <div class="col-sm-6 col-md-3"> <input type="text" name="name" placeholder="Your Name"> </div>
+                        <div class="col-sm-6 col-md-3"> <input type="email" name="email" placeholder="Email Address"> </div>
+                        <div class="col-sm-6 col-md-3"> <input type="password" name="password" placeholder="Password"> </div>
+                        <div class="col-sm-6 col-md-3"> <button type="submit" class="btn btn--primary type--uppercase">Get Started</button> </div>
+                    </form> <span class="type--fine-print">I have read and agree to the <a href="#">Terms &amp; Conditions</a></span> </div>
+            </div>
+        </section>
+        

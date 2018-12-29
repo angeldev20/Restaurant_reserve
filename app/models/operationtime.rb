@@ -1,0 +1,2 @@
+class Operationtime < ApplicationRecord
+end

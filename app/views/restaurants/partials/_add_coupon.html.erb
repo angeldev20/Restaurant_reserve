@@ -1,0 +1,133 @@
+<%= simple_form_for @restaurant do |f| %>
+<form class="text-left" data-error="Please fill in all fields correctly." novalidate="true">
+    <div class="row">
+        <h5>Discount</h5>
+            <!-- I think we should have a max # of discounts per coupon, not capacity on Restaurant object. 
+                If there are no more discounts to give for that day, it defaults to regular reservation with no discount -->
+            <%= f.fields_for :coupons, @coupon do |p|  %>
+            <div class="col-sm-12">
+                <span>Please add a new coupon</span>
+            </div>
+
+            <div class="col-sm-1">
+                <div class="input-checkbox">
+                <%= p.check_box :monday%>
+                <label for="checkbox"></label>
+                </div>
+                <span>Mon</span>
+            </div>
+        
+            <div class="col-sm-1">
+                <div class="input-checkbox">
+                <%= p.check_box :tuesday%>
+                <label for="checkbox"></label>
+                </div>
+                <span>Tue</span>               
+            </div>
+            <div class="col-sm-1">
+                <div class="input-checkbox">
+                <%= p.check_box :wednesday%>
+                <label for="checkbox"></label>
+                </div>
+                <span>Wed</span>
+            </div>
+        
+            <div class="col-sm-1">
+                <div class="input-checkbox">
+                <%= p.check_box :thursday%>
+                <label for="checkbox"></label>
+                </div>
+                <span>Thu</span>
+                
+               
+            </div>
+        
+            <div class="col-sm-1">
+                <div class="input-checkbox">
+                <%= p.check_box :friday%>
+                <label for="checkbox"></label>
+                </div>
+                <span>Fri</span>
+                
+               
+            </div>
+        
+        
+            <div class="col-sm-1">
+                <div class="input-checkbox">
+                <%= p.check_box :saturday%>
+                <label for="checkbox"></label>
+                </div>
+                <span>Sat</span>
+                
+               
+            </div>
+        
+            <div class="col-sm-1">
+                <div class="input-checkbox">
+                <%= p.check_box :sunday%>
+                <label for="checkbox"></label>
+                </div>
+                <span>Sun</span>
+            </div>
+            <div class="col-sm-6">
+                <%= p.label :start_date, class: "col-form-label" %>
+                <%= p.time_field :start_date, class: "form-control"%>
+            </div>
+        
+            <div class="col-sm-6">
+                <%= p.label :end_date, class: "col-form-label" %>
+                <%= p.time_field :end_date, class: "form-control"%>
+            </div>
+        
+            <div>
+                <% p.label :start_time, class: "col-form-label" %>
+                <% p.datetime_select :start_time, class: "form-control"%>
+            </div>
+        
+            <div>
+                <% p.label :end_time, class: "col-form-label" %>
+                <% p.datetime_select :end_time, class: "form-control"%>
+            </div>
+        
+            <div class="col-sm-6">
+                <%= p.label :value, class: "col-form-label" %>
+                <%= p.text_field :value, class: "form-control"%>
+            </div>
+        
+            <div class="col-sm-6">
+                <%= p.label :coupon_detail, class: "col-form-label" %>
+                <%= p.text_field :coupon_detail, class: "form-control"%>
+            </div>
+        
+            <div class="col-sm-6">
+                <%= p.label :number, class: "col-form-label" %>
+                <%= p.text_field :number, class: "form-control"%>
+            </div>
+        
+            <div class="col-sm-12">
+            </div>
+        
+            <div class="col-sm-6">
+                <div class="input-radio">
+                <%= p.check_box :two_week_coupon%>
+                <label for="checkbox-switch"></label>
+                </div>
+                <span>Allow for 2 weeks out.</span>
+            </div>
+        
+            <div class="col-sm-6">
+                <div class="input-radio">
+                    
+                <%= p.check_box :month_coupon, id: "checkbox-switch"%>
+                <label for="checkbox-switch"></label>
+                </div>
+                <span>Allow for 1 month out.</span>
+            </div>
+            <%end%>
+           
+        
+        <%= f.submit 'Save Discount', :class => 'btn btn--primary type--uppercase' %>
+    </div>
+</form>
+<% end %>

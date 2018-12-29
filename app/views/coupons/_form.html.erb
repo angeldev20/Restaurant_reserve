@@ -1,0 +1,111 @@
+<%= simple_form_for([@restaurant, @coupon]) do |p| %>
+<%= p.error_notification %>
+<section class="bg--secondary space--sm">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-offset-1 col-md-8 col-md-offset-2">
+                <div class="row">
+                    <h4 class="text-center"><% if @coupon.coupon_detail.present? %><%= @coupon.coupon_detail %> for <%= @restaurant.name %><% else %>Add a Discount Schedule for <%= @restaurant.name %><% end %></h4>
+                    <div class="boxed boxed--border">
+                    <form data-error="Please fill in all fields correctly." novalidate="true">
+                        <h5 class="text-center">Select Days Your Meal Discount Should Run.</h5>
+                        <div class="col-sm-1">
+                            <div class="input-checkbox">
+                                    <span>Mon</span>       
+                                <%= p.check_box :monday%>
+                                <label for="checkbox"></label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="input-checkbox">
+                                    <span>Tue</span>
+                                <%= p.check_box :tuesday%>
+                                <label for="checkbox"></label>
+                            </div>
+                        </div>
+                        <div class="col-sm-1">
+                            <div class="input-checkbox">
+                                    <span>Wed</span>
+                                <%= p.check_box :wednesday%>
+                                <label for="checkbox"></label>
+                            </div>
+                        </div>
+                        <div class="col-sm-1">
+                            <div class="input-checkbox">
+                                    <span>Thu</span>
+                                <%= p.check_box :thursday%>
+                                <label for="checkbox"></label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="input-checkbox">
+                                    <span>Fri</span>   
+                                <%= p.check_box :friday%>
+                                <label for="checkbox"></label>
+                            </div>
+                        </div>
+                        <div class="col-sm-1">
+                            <div class="input-checkbox">
+                                    <span>Sat</span>
+                                <%= p.check_box :saturday%>
+                                <label for="checkbox"></label>
+                            </div>
+                        </div>
+                        <div class="col-sm-1">
+                            <div class="input-checkbox">
+                                    <span>Sun</span>
+                                <%= p.check_box :sunday%>
+                                <label for="checkbox"></label>
+                            </div>
+                        </div>
+                        
+                        <div class="col-sm-6">
+                            <%= p.label 'Start Time', class: "col-form-label" %>
+                            <%= p.time_field :start_date, class: "form-control"%>
+                        </div>
+                        <div class="col-sm-6">
+                            <%= p.label 'End Time', class: "col-form-label" %>
+                            <%= p.time_field :end_date, class: "form-control"%>
+                        </div>
+                        <div class="col-sm-6">
+                            <% p.label :start_time, class: "col-form-label" %>
+                            <% p.time_field :start_time, class: "form-control"%>
+                        </div>
+                        <div class="col-sm-6">
+                            <% p.label :end_time, class: "col-form-label" %>
+                            <% p.time_field :end_time, class: "form-control"%>
+                        </div>
+                        
+                        <div class="col-sm-6">
+                            <%= p.label 'Max Reservations Allowed.', class: "col-form-label" %>
+                            <%= p.text_field :number, class: "form-control"%>
+                        </div>
+                        <div class="col-sm-6">
+                                <%= p.label 'Discount Description.', class: "col-form-label" %>
+                                <%= p.text_field :coupon_detail, class: "form-control"%>
+                        </div>
+                               
+                            <div class="col-sm-6">    
+                                    <%= p.label "Advance Reservation Length.", class: "col-form-label" %>
+                            <div class="input-select">
+                                    <%= p.select :month_coupon, [['30 days', true], ['2 weeks', false]], :prompt => "How far out can a patron book?" %>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">    
+                                    <%= p.label 'Discount off (%) of meal', class: "col-form-label" %>
+                            <div class="input-select">
+                                    <%= p.select :value, ['50% Off', '40% Off', '30% Off', '25% Off', '20% Off', '15% Off', '10% Off'], :prompt => "Choose a discount value." %>
+                                </div>
+                            </div>          
+                        <div class="col-sm-12" style="padding-top:50px;">
+                                <%= p.submit 'Save Discount', :class => 'btn btn--primary type--uppercase' %>
+                                <%= link_to 'Cancel', restaurant_path(@restaurant) %>
+                                
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<%end%>

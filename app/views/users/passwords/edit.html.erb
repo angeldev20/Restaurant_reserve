@@ -1,0 +1,26 @@
+<div class="main-container">
+            <section class="height-100 text-center">
+                <div class="container pos-vertical-center">
+                    <div class="row">
+                        <div class="col-sm-7 col-md-5">
+                        <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f| %>
+                            <h2>Change your password</h2>
+                            <p class="lead">
+                                Enter email address to send a recovery email.  <%= devise_error_messages! %>
+                                <%= f.hidden_field :reset_password_token %>
+                            </p>
+                            <form>
+                                <%= f.label :password, 'New password' %>
+                                <%= f.password_field :password, autofocus: true, autocomplete: 'off', class: 'form-control' %>
+                                <%= f.label :password_confirmation, 'Confirm new password' %>
+                                <%= f.password_field :password_confirmation, autocomplete: 'off', class: 'form-control' %>
+                                <%= f.submit 'Change my Password', :class => 'button right' %>
+                            </form>
+                        <% end %>
+                        </div>
+                    </div>
+                    <!--end of row-->
+                </div>
+                <!--end of container-->
+            </section>
+        </div>

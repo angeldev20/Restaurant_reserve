@@ -1,0 +1,47 @@
+
+<%= simple_form_for(@reservation) do |f| %>
+  <%= f.error_notification %>
+
+
+  <% if @reservation.errors.any? %>
+    <div id="error_explanation">
+       <div class="alert alert-error">
+         The form contains <%= pluralize(@reservation.errors.count, "error") %>.
+       </div>
+      <ul>
+       <% @reservation.errors.full_messages.each do |msg| %>
+        <li>* <%= msg %></li>
+       <% end %>
+     </ul>
+    </div>
+  <% end %>
+
+
+
+  <div class="form-inputs">
+
+    <div>
+      <%= f.label :head_count, class: "col-form-label" %>
+      <%= f.text_field :head_count, class: "form-control"%>
+    </div>
+
+    <div>
+      <%= f.label :time, class: "col-form-label" %>
+      <%= f.datetime_select :time, class: "form-control"%>
+    </div>
+
+    <div>
+      <%= f.label :special_request, class: "col-form-label" %>
+      <%= f.text_field :special_request, class: "form-control"%>
+    </div>
+
+  </div>
+
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
+
+
+

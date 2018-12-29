@@ -1,0 +1,28 @@
+        <div class="main-container">
+            <section class="height-100 text-center">
+                <div class="container pos-vertical-center">
+                    <div class="row">
+                        <div class="col-sm-7 col-md-5">
+                        <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post, :role => 'form'}) do |f| %>
+                            <h2>Recover your account</h2>
+                            <p class="lead">
+                                Enter email address to send a recovery email.  <%= devise_error_messages! %>
+                            </p>
+                            <form>
+                                <%= f.label :email %>
+                                <%= f.email_field :email, :autofocus => true, class: 'form-control' %>
+                                <%= f.submit 'Recover Account', :class => 'btn btn--primary type--uppercase' %>
+                            </form>
+                            <span class="type--fine-print block">Dont have an account yet?
+                                <%- if devise_mapping.registerable? %>
+                                <%= link_to 'Sign up now.', new_registration_path(resource_name), class: 'right'  %>
+                                <% end -%>
+                            </span>
+                          <% end %>
+                        </div>
+                    </div>
+                    <!--end of row-->
+                </div>
+                <!--end of container-->
+            </section>
+        </div>

@@ -1,0 +1,60 @@
+<% unless user_signed_in? %>
+    <%= render 'layouts/nav_bar_none' %>
+<% end %>
+<section class="height-100 imagebg text-center" data-overlay="8">
+    <div class="background-image-holder">
+      <%= image_tag "lobster-dinner-out.jpeg" %>
+    </div>
+    <div class="container pos-vertical-center">
+        <div class="row">
+            <div class="col-sm-7 col-md-5">
+                <h2>Login to continue</h2>
+                <a class="btn block btn--icon bg--facebook type--uppercase" href="#">
+                    <span class="btn__text">
+                        <i class="socicon-facebook"></i>
+                        Login with Facebook
+                    </span>
+                </a>
+                <a class="btn block btn--icon bg--googleplus type--uppercase" href="#">
+                    <span class="btn__text">
+                        <i class="socicon-google"></i>
+                        Login with Google
+                    </span>
+                </a>
+                <hr>
+                <p>Login using your Dinelyy account</p>
+                <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :role => 'form'}) do |f| %>
+                <%= devise_error_messages! %>
+                <form>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <%= f.email_field :email, :autofocus => true, class: 'form-control' %>
+                        </div>
+                        <div class="col-sm-12">
+                            <%= f.password_field :password, class: 'form-control' %>
+                        </div>
+                        <div class="col-sm-12">
+                            <%= f.submit 'Sign in', :class => 'btn btn--primary type--uppercase' %>
+                            
+                        </div>
+                    </div>
+                    <!--end of row-->
+                </form>
+                <span class="type--fine-print block">Dont have an account yet?
+                        <%- if devise_mapping.registerable? %>
+                        <%= link_to 'Sign up now.', new_registration_path(resource_name), class: 'right'  %>
+                      <% end -%>
+                </span>
+                <span class="type--fine-print block">Forgot your username or password?
+                        <%- if devise_mapping.recoverable? %>
+                        <%= link_to "Recover your account.", new_password_path(resource_name), class: 'right' %>
+                        <% end -%>
+                </span>
+            </div>
+            <% end %>
+        </div>
+        <!--end of row-->
+    </div>
+    <!--end of container-->
+</section>
+<!--<div class="loader"></div>-->

@@ -1,0 +1,197 @@
+<div class="main-container">
+        <section class="bg--secondary space--sm">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <div class="boxed boxed--lg boxed--border">
+                            <div class="text-block text-center">
+                                <%= image_tag avatar_url(@user) , class: "image--md" %>
+                                    <span class="h5"><%= @user.name if @user.name %></span>
+                                    <span class="label"><%= @user.role if @user.role %></span>
+                            </div>
+                            <div class="text-block clearfix text-center">
+                                <ul class="row row--list">
+                                    <li class="col-sm-4">
+                                        <span class="type--fine-print block">Location:</span>
+                                        <span>San Francisco&nbsp;</span>
+                                    </li>
+                                    <li class="col-sm-4">
+                                        <span class="type--fine-print block">Phone:</span>
+                                        <span><%= @user.phone if @user.phone %></span>
+                                    </li>
+                                    <li class="col-sm-4">
+                                        <span class="type--fine-print block">E-mail:</span>
+                                        <span><%= @user.email if @user.email %><span>
+                                    </li>
+                            </div>
+                            </ul>
+                            
+                        </div>
+                <% if current_user.admin? or current_user.owner? %>
+                        <div class="boxed boxed--border">
+                                <div><i class="material-icons" style="vertical-align: middle; font-size: inherit;">add_box</i> 
+                                    <span class="text-right">
+                                        <%= link_to 'Add a new location', new_restaurant_path %>
+                                    </span>
+                                </div>
+                                <% if current_user.restaurants.any? %>
+                                <table class="border--round table--alternate-row">
+                                    <thead>
+                                            <tr>
+                                                <th>
+                                                    Restaurant Name <i class="material-icons" style="vertical-align: middle; font-size: inherit;">remove_red_eye</i>
+                                                </th>
+                                                <th>
+                                                    Location <i class="material-icons" style="vertical-align: middle; font-size: inherit;">mode_edit</i>
+                                                </th>
+                                                <th>
+                                                    Open Bookings <i class="material-icons" style="vertical-align: middle; font-size: inherit;">date_range</i>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% current_user.restaurants.each do |restaurant| %>    
+                                            <tr>
+                                                <td>
+                                                    <%= link_to restaurant.name, restaurant %>
+                                                </td>
+                                                <td>
+                                                    <%= link_to restaurant.address, edit_restaurant_path(restaurant) %>
+                                                </td>
+                                                <td>
+                                                    <%= link_to restaurant.reservations.count, reservations_path %>
+                                                </td>
+                                            </tr>
+                                            <% end %>
+                                        </tbody>
+                                    </table>
+                                    
+                            <ul class="row row--list clearfix text-center">
+                                <li class="col-sm-3 col-xs-6">
+                                    <span class="h6 type--uppercase type--fade">Favorited</span>
+                                    <span class="h3">220</span>
+                                </li>
+                                <li class="col-sm-3 col-xs-6">
+                                    <span class="h6 type--uppercase type--fade">Locations</span>
+                                    <span class="h3">14</span>
+                                </li>
+                                <li class="col-sm-3 col-xs-6">
+                                    <span class="h6 type--uppercase type--fade">Reservations</span>
+                                    <span class="h3">2,129</span>
+                                </li>
+                                <li class="col-sm-3 col-xs-6">
+                                    <span class="h6 type--uppercase type--fade">Views</span>
+                                    <span class="h3">119</span>
+                                </li>
+                            </ul>
+                            
+                        </div>
+                        <% end %>
+                        <% end %>
+                        <div class="boxed boxed--border">
+                            <h4>Recent Reservations</h4>
+                            <ul>
+                                <li class="clearfix">
+                                    <div class="row">
+                                        <div class="col-md-2 col-xs-3 text-center">
+                                            <div class="icon-circle">
+                                                <i class="icon icon--lg material-icons">comment</i>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8 col-xs-7">
+                                            <span class="type--fine-print">21st July, 2017</span>
+                                            <a href="#" class="block color--primary">Check out the relaunched Scope</a>
+                                            <p>
+                                                Discourse in writing dealing with a particular point or idea.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </li>
+                                <li class="clearfix">
+                                    <div class="row">
+                                        <div class="col-md-2 col-xs-3 text-center">
+                                            <div class="icon-circle">
+                                                <i class="icon icon--lg material-icons">mode_edit</i>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8 col-xs-7">
+                                            <span class="type--fine-print">14th July, 2017</span>
+                                            <a href="#" class="block color--primary">Tips for web typography</a>
+                                            <p>
+                                                To write beside or "written beside" is a self-contained unit of a discourse in writing dealing with a particular point or idea.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </li>
+                                <li class="clearfix">
+                                    <div class="row">
+                                        <div class="col-md-2 col-xs-3 text-center">
+                                            <div class="icon-circle">
+                                                <i class="icon icon--lg material-icons">favorite</i>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8 col-xs-7">
+                                            <span class="type--fine-print">12th July, 2017</span>
+                                            <a href="#" class="block color--primary">Where do you source your stock photography?</a>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </li>
+                                <li class="clearfix">
+                                    <div class="row">
+                                        <div class="col-md-2 col-xs-3 text-center">
+                                            <div class="icon-circle">
+                                                <i class="icon icon--lg material-icons">comment</i>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8 col-xs-7">
+                                            <span class="type--fine-print">3rd July, 2017</span>
+                                            <a href="#" class="block color--primary">Share your rapid development workflow</a>
+                                            <p>
+                                                Of a discourse in writing dealing with a particular point or idea.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <a href="#" class="type--fine-print pull-right">View All</a>
+                        </div>
+                        <div class="boxed boxed--border">
+                            <h4>Favorites</h4>
+                            <ul class="clearfix row row--list text-center">
+                                <li class="col-sm-3 col-xs-6">
+                                    <a href="#">
+                                        <img alt="avatar" src="http://lorempixel.com/70/70/" class="image--sm" />
+                                        <span class="block">Alice Merriweather</span>
+                                    </a>
+                                </li>
+                                <li class="col-sm-3 col-xs-6">
+                                    <a href="#">
+                                        <img alt="avatar" src="http://lorempixel.com/70/70/" class="image--sm" />
+                                        <span class="block">Kelly Burgess</span>
+                                    </a>
+                                </li>
+                                <li class="col-sm-3 col-xs-6">
+                                    <a href="#">
+                                        <img alt="avatar" src="http://lorempixel.com/70/70/" class="image--sm" />
+                                        <span class="block">Marc Nguyen</span>
+                                    </a>
+                                </li>
+                                <li class="col-sm-3 col-xs-6">
+                                    <a href="#">
+                                        <img alt="avatar" src="http://lorempixel.com/70/70/" class="image--sm" />
+                                        <span class="block">Selena Rouse</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <a href="#" class="type--fine-print pull-right">View All</a>
+                        </div>
+                        
+                    </div>
+                </div>
+                <!--end of row-->
+            </div>
+            <!--end of container-->
+        </section>

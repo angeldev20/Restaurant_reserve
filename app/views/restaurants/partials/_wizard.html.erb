@@ -1,0 +1,182 @@
+<%= simple_form_for(@restaurant, :html => { :multipart => true }, :remote => true) do |f| %>
+  <%= f.error_notification %>
+    <section class="bg--secondary space--sm">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+                    <div class="row">
+                        <h4 class="text-center"><% if @restaurant.name.present? %><%= @restaurant.name %><% else %>Add a restaurant.<% end %></h4>
+                        <div class="boxed boxed--border">
+                            <form class="text-left" data-error="Please fill in all fields correctly." novalidate="true">
+                                <div class="wizard">
+                                    <h5>Location</h5>
+                                    <section>
+                                        <div class="col-sm-12">
+                                            <%= f.label :name, class: "col-form-label" %>
+                                            <%= f.text_field :name, class: "validate-required"%>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <%= f.label :address, class: "col-form-label" %>
+                                            <%= f.text_field :address, class: "validate-required"%>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <%= f.label :city, class: "col-form-label" %>
+                                            <%= f.text_field :city, class: "validate-required"%>
+                                        </div>
+                                        <div class="col-sm-6">
+                                                <%= f.label :state, class: "col-form-label" %>
+                                                <%= f.text_field :state, class: "validate-required"%>
+                                        </div>
+                                        <div class="col-sm-6">
+                                                <%= f.label :zipcode, class: "col-form-label" %>
+                                                <%= f.text_field :zipcode, class: "validate-required"%>
+                                        </div>
+                                        <div class="col-sm-6">
+                                                <%= f.label :phone_number, class: "col-form-label" %>
+                                                <%= f.text_field :phone_number, class: "validate-required"%>
+                                        </div>
+                                        <div class="col-sm-6">
+                                                <%= f.label :website_link, class: "col-form-label" %>
+                                                <%= f.text_field :website_link, class: "form-control"%>
+                                        </div>
+                                        <div class="col-sm-6">    
+                                                <%= f.label :cuisines, class: "col-form-label" %>
+                                        <div class="input-select">
+                                                <%= f.collection_select :cuisine_ids, Cuisine.all, :id, :name, :prompt => "Please Select a Cuisine/Category" %>
+                                            </div>
+                                        </div>
+                                            
+                                    </section>
+                                    <h5>About</h5>
+                                    <section>
+                                        <div class="row" style="padding-bottom: 25px;">
+                                        <span class="h5 text-center">About your location.</span>
+                                            <div class="col-sm-12">
+                                                    <%= f.label :blurb, "A short blurb about your discount or restaurant.", class: "col-form-label" %>
+                                                    <%= f.text_field :blurb, class: "validate-required"%>
+                                            </div>
+                                        </div>
+                                        <div class="row">                
+                                            <div class="col-sm-12">
+                                                    <%= f.label :description, "A longer description about restaurant.", class: "col-form-label" %>
+                                                    <%= f.text_area :description, size: "5x8" %>
+                                            </div>
+                                        </div> 
+                                    </section>
+                                    <h5>Photos</h5>
+                                    <section>
+                                            <%= f.fields_for @attachment do |p| %>
+                                        <div class="row" style="padding-bottom: 25px;">
+                                            <span class="h5 text-center">Upload your photos.</span>
+                                            <div class="col-sm-12">
+                                                <span>Please upload your main image. (Should be 1000px wide)</span>
+                                                <%= p.file_field :image, name: "attachments[image][]" %>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                    <span>Please upload gallery image 1</span>
+                                                    <%= p.file_field :image, name: "attachments[image][]" %>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                    <span>Please upload gallery image 2</span>
+                                                    <%= p.file_field :image, name: "attachments[image][]" %>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                    <span>Please upload gallery image 3</span>
+                                                    <%= p.file_field :image, name: "attachments[image][]" %>
+                                            </div>
+                                        </div>
+                                        <% end %>
+                                    </section>
+                                    <h5>Services</h5>
+                                    <section>   
+                                            <div class="row" style="padding-bottom: 25px;">
+                                                <span class="h5 text-center">Average price per plate.</span>
+                                                <div class="col-sm-6">
+                                                        <label class="col-form-label">Min menu item price ($)</label>
+                                                        <%= f.text_field :cost_range_min, class: "form-control"%>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                        <label class="col-form-label">Max menu item price ($)</label>
+                                                        <%= f.text_field :cost_range_max, class: "form-control"%>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <span class="h5 text-center">Service offerings.</span>      
+                                                <div class="col-sm-3 col-xs-6 text-center">
+                                                    <span class="block">Parking/Valet</span>
+                                                    <div class="input-checkbox">
+                                                    <%= f.check_box :parking_valet%>
+                                                    <label for="checkbox-switch"></label>
+                                                    </div>
+                                                </div>
+                                            
+                                                <div class="col-sm-3 col-xs-6 text-center">
+                                                    <span class="block">Outdoor Seating</span>
+                                                    <div class="input-checkbox">
+                                                    <%= f.check_box :outdoor_seating%>
+                                                    <label for="checkbox-switch"></label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3 col-xs-6 text-center">
+                                                    <span class="block">Pet Friendly</span>
+                                                    <div class="input-checkbox">
+                                                    <%= f.check_box :pet_friendly%>
+                                                    <label for="checkbox-switch"></label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3 col-xs-6 text-center">
+                                                    <span class="block">Handicap Accessible</span>
+                                                    <div class="input-checkbox">
+                                                    <%= f.check_box :handicap_accessible%>
+                                                    <label for="checkbox-switch"></label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3 col-xs-6 text-center">
+                                                        <span class="block">Smoking Allowed</span>
+                                                        <div class="input-checkbox">
+                                                        <%= f.check_box :smoking_allowed%>
+                                                        <label for="checkbox-switch"></label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3 col-xs-6 text-center">
+                                                        <span class="block">Cocktails</span>
+                                                        <div class="input-checkbox">
+                                                        <%= f.check_box :cocktails%>
+                                                        <label for="checkbox-switch"></label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3 col-xs-6 text-center">
+                                                        <span class="block">Private Parties</span>
+                                                        <div class="input-checkbox">
+                                                        <%= f.check_box :private_parties%>
+                                                        <label for="checkbox-switch"></label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3 col-xs-6 text-center">
+                                                        <span class="block">Big Groups</span>
+                                                        <div class="input-checkbox">
+                                                        <%= f.check_box :big_groups%>
+                                                        <label for="checkbox-switch"></label>
+                                                        </div>
+                                                    </div>
+                                            </div>  
+                                    </section>
+                                </div>
+                            </form>
+                                    <div>
+                                    <%= link_to 'Cancel', restaurants_path %>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end of row-->
+                </div>
+                
+            </div>
+            <!--end of row-->
+        </div>
+        <!--end of container-->
+    </section>
+<% end %>

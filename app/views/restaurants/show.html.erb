@@ -1,0 +1,157 @@
+<section class="switchable imagebg height-100 space--xs" data-overlay="2">
+    <% @attachments.each do |p| %>
+    <div class="background-image-holder"><%= image_tag p.image_url %></div>
+    <% end %>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5 col-sm-7 switchable__text">
+            <div style="padding-top: 150px;">
+                
+                <h1><%= @restaurant.name %></h1>
+                <p class="lead"> <%= @restaurant.blurb %></p>
+                
+                <a class="btn btn--primary type--uppercase" href="#top"> <span class="btn__text">
+                    Learn More.
+                </span> </a>
+            </div>    
+        </div>
+            <div class="col-sm-7">
+                <div class="boxed boxed--lg bg--white boxed--border boxed-form">
+                    <% unless @restaurant.user_id == current_user.try(:id) or current_user.try(:admin?) %>
+                    <%= render partial: 'restaurants/partials/reservation'%>
+                    <% else %>
+                    <%= render partial: 'restaurants/partials/list_schedules'%>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="container" id="top">
+        <div class="row">
+            <div class="masonry">
+                <div class="masonry__container masonry--active">
+                    <% if @restaurant.user_id == current_user.try(:id) or current_user.try(:admin?) %>
+                    <% @attachments.limit(4).drop(1).each do |p| %>
+                    <div class="masonry__item col-md-4 col-xs-6">
+                        <%= image_tag p.image_url, :size => "360x200", :class=> "border--round", :style=>"object-fit: cover; overflow: hidden;"%>
+                        <%= link_to "Edit Image", edit_attachment_path(p) %>
+                    </div>
+                    <% end %>
+                    <% end %>
+                    <!-- <div class="masonry__item col-md-4 col-xs-6 filter-people" data-masonry-filter="People">
+                        <a href="img/work-3.jpg" data-lightbox="Gallery 1"> <%= image_tag "restaurant-2.jpg" %> </a>
+                    </div>
+                    <div class="masonry__item col-md-4 col-xs-6 filter-people" data-masonry-filter="People">
+                        <a href="img/work-3.jpg" data-lightbox="Gallery 1"> <%= image_tag "restaurant-2.jpg" %> </a>
+                    </div>
+
+                    <% @attachments.each do |p| %>
+                    <div class="masonry__item col-md-4 col-xs-6 filter-people" data-masonry-filter="People">
+                        <a data-lightbox="Gallery 1"> <%= image_tag p.image_url, :size => "150x150" %> </a>
+                        <%= link_to "Edit Image", edit_attachment_path(p) %>
+                    </div>                   
+                    <% end %> -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="switchable">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-md-5">
+                <div class="switchable__text">
+                    <div class="switchable__text">
+                        <h2><%= @restaurant.name %><br class="hidden-xs hidden-sm"> <%= @restaurant.address %>
+                        <br class="hidden-xs hidden-sm"><%=@restaurant.city %>, <%= @restaurant.state %> <%= @restaurant.zipcode %></h2>
+                        <p class="lead"> <%= @restaurant.description %></p>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="col-sm-6 col-md-4 col-md-pull-1 col-xs-12">
+                <div class="pricing pricing-1 boxed boxed--lg boxed--border">
+                        <% @restaurant.cuisines.each do |cuisine| %>
+                        <h3><%= cuisine.name %></h3>
+                        <% end %>
+                    
+
+                    <span class="h2"><strong>Up to 50% Off.</strong></span> <span class="type--fine-print">Avg. $<%= @restaurant.cost_range_min %>-<%= @restaurant.cost_range_max %> per person.</span> <span class="label">Value</span>
+                    <hr>
+                    <ul>
+                        <!-- Needs to be pulled in from somewhere as does max percentage off above -->
+                        <% if @restaurant.pet_friendly == true %>
+                        <li><span class="checkmark bg--primary-1"></span><span>Pet Friendly</span></li>
+                        <% end %>
+                        <% if @restaurant.smoking_allowed == true %>
+                        <li><span class="checkmark bg--primary-1"></span><span>Smoking Allowed</span></li>
+                        <% end %>
+                        <% if @restaurant.parking_valet == true %>
+                        <li><span class="checkmark bg--primary-1"></span><span>Free Parking</span></li>
+                        <% end %>
+                        <% if @restaurant.private_parties == true %>
+                        <li><span class="checkmark bg--primary-1"></span><span>Private Parties</span></li>
+                        <% end %>
+                        <% if @restaurant.outdoor_seating == true %>
+                        <li><span class="checkmark bg--primary-1"></span><span>Outdoor Seating</span></li>
+                        <% end %>
+                        <% if @restaurant.cocktails == true %>
+                        <li><span class="checkmark bg--primary-1"></span><span>Cocktails</span></li>
+                        <% end %>
+                        <% if @restaurant.big_groups == true %>
+                        <li><span class="checkmark bg--primary-1"></span><span>Big Groups</span></li>
+                        <% end %>
+                    </ul>
+                    <a class="btn btn--primary" href="#"> <span class="btn__text">
+                Reserve Table
+            </span> </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</section>
+<section class="text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-xs-12">
+                <% if @restaurant.address.present? %>
+                <div class="map-container border--round" data-maps-api-key="AIzaSyCfo_V3gmpPm1WzJEC9p_sRbgvyVbiO83M" 
+                        data-address="<%= @restaurant.city %> <%= @restaurant.state %> <%= @restaurant.zipcode %> <%= @restaurant.address %>" 
+                        data-marker-title="Dinelyy" 
+                        data-map-style="[{&quot;featureType&quot;:&quot;landscape&quot;,&quot;stylers&quot;:[{&quot;hue&quot;:&quot;#FFBB00&quot;},
+                        {&quot;saturation&quot;:43.400000000000006},{&quot;lightness&quot;:37.599999999999994},{&quot;gamma&quot;:1}]},
+                        {&quot;featureType&quot;:&quot;road.highway&quot;,&quot;stylers&quot;:[{&quot;hue&quot;:&quot;#FFC200&quot;},
+                        {&quot;saturation&quot;:-61.8},{&quot;lightness&quot;:45.599999999999994},{&quot;gamma&quot;:1}]},
+                        {&quot;featureType&quot;:&quot;road.arterial&quot;,&quot;stylers&quot;:[{&quot;hue&quot;:&quot;#FF0300&quot;},{&quot;saturation&quot;:-100},
+                        {&quot;lightness&quot;:51.19999999999999},{&quot;gamma&quot;:1}]},
+                        {&quot;featureType&quot;:&quot;road.local&quot;,&quot;stylers&quot;:[{&quot;hue&quot;:&quot;#FF0300&quot;},
+                        {&quot;saturation&quot;:-100},{&quot;lightness&quot;:52},{&quot;gamma&quot;:1}]},
+                        {&quot;featureType&quot;:&quot;water&quot;,&quot;stylers&quot;:[{&quot;hue&quot;:&quot;#0078FF&quot;},
+                        {&quot;saturation&quot;:-13.200000000000003},{&quot;lightness&quot;:2.4000000000000057},{&quot;gamma&quot;:1}]},
+                        {&quot;featureType&quot;:&quot;poi&quot;,&quot;stylers&quot;:[{&quot;hue&quot;:&quot;#00FF6A&quot;},
+                        {&quot;saturation&quot;:-1.0989010989011234},{&quot;lightness&quot;:11.200000000000017},{&quot;gamma&quot;:1}]}]" 
+                        data-map-zoom="15">
+                </div>
+                <% end %>
+                <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-xs-12 col-xs-offset-0">
+                    <h3><%= @restaurant.address %><br><%=@restaurant.city %>, <%= @restaurant.state %> <%= @restaurant.zipcode %></h3>
+                    <p class="lead"> W: <a href="#"><%= @restaurant.website_link %></a><br> P: <%= @restaurant.phone_number %> </p>
+                    <p class="lead"> <%= @restaurant.blurb %></p>
+                    <!-- <p class="lead"> We are open from <%= @restaurant.open_time %> — <%= @restaurant.close_time %> week days. </p> -->
+                    <% if @restaurant.user_id == current_user.try(:id) or current_user.try(:admin?) %>
+                    <div>
+                        <%= link_to @restaurant, method: :delete, data: { confirm: 'Are you sure? This can not be un-done.' }, :class=>"btn btn--primary btn--icon" do %>
+                            <span class="btn__text"><i class="icon-Arrow-XLeft"></i>Delete Restaurant</span>
+                        <% end %>
+                        <p>Warning: This can not be undone.</p>
+                    </div>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

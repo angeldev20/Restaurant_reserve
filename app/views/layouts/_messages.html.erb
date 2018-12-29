@@ -1,0 +1,15 @@
+
+<div class="notification pos-right pos-bottom col-sm-4 col-md-3 notification--reveal" data-animation="from-bottom" data-notification-link="autohide-trigger" data-autohide="2000">
+<% flash.each do |name, msg| %>
+   <% if msg.is_a?(String) %>
+            <div class="alert bg--<%= name.to_s == 'primary' ? 'error' : 'success' %>">
+              <div class="alert__body">
+                <%= content_tag :span, msg, :id => "flash_#{name}" %>
+              </div>
+              <div class="alert__close">
+                ×
+              </div>
+            </div>
+            <% end %>
+              <% end %>
+</div>

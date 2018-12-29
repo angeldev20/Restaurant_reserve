@@ -1,0 +1,65 @@
+<div class="wizard">
+        <h5>Pick your day</h5>
+        <section class="text-center calendar-day" style:"cursor:pointer;">
+            <%= month_calendar events:@coupons do |date|%>
+              <%= content_tag :div, class: "calendar-day", data: {date: date.day} do %>
+                <%= date.day %>
+              
+                <% @coupons.each do |coupon| %>
+                  <div style="color:red; font-size:12px; cursor:pointer;">
+                    <%= coupon.value %>% OFF
+                  </div>
+                <% end %>
+                <% end %>
+            <% end %>
+        </section>
+        <h5>Availability</h5>
+        <section class="text-center">
+            <div class="pos-vertical-center">
+                    <h4>All the coupon info is at here, need to add this info into a calender view</h4>
+                    <% @coupons.each do |p| %>
+                      <div>
+                        <span>Coupon start time</span> <%= p.start_date %>   |||  
+                        <span>Coupon end time</span> <%= p.end_date %>   |||  
+                        <span>Coupon value time</span> <%= p.value %>   |||  
+                        <span>Coupon number</span> <%= p.number %>
+                        
+                      </div>
+                    <% end %>
+            </div>
+        </section>
+        <h5>Reserve it</h5>
+        <section class="text-center">
+            <div class="pos-vertical-center">
+                    <h4>Booking form goes here, this will need to convert to the calendar version </h4>
+                    <%= simple_form_for(:reservation, :url => {controller: "reservations", action: "create"}) do |f|%>
+                      <div class="form-inputs" class="col-md-6">
+                    <% if user_signed_in? %>
+                        <div class="hidden-fields" hidden>
+                            <% f.text_field :user_id, value: current_user.id %>
+                            <% f.text_field :restaurant_id, value: @restaurant.id%>
+                        </div>
+                    <% end  %>
+                        <div>
+                          <%= f.label :head_count, class: "col-form-label" %>
+                          <%= f.text_field :head_count, class: "form-control"%>
+                        </div>
+                
+                        <div>
+                          <%= f.label :time, class: "col-form-label" %>
+                          <%= f.datetime_field :time, class: "form-control"%>
+                        </div>
+                
+                        <div>
+                          <%= f.label :special_request, class: "col-form-label" %>
+                          <%= f.text_field :special_request, class: "form-control"%>
+                        </div>
+                
+                      </div>
+                      <div class="form-actions">
+                        <%= f.button :submit %>
+                      </div>
+                    <% end %>
+            </div>
+        </section>
+    </div>

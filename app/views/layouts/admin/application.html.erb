@@ -1,0 +1,52 @@
+<%#
+# Application Layout
+
+This view template is used as the layout
+for every page that Administrate generates.
+
+By default, it renders:
+- Navigation
+- Content for a search bar
+  (if provided by a `content_for` block in a nested page)
+- Flashes
+- Links to stylesheets and JavaScripts
+%>
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= content_for(:title) %> - <%= Rails.application.class.parent_name.titlecase %></title>
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Restaurant Reservations with Discounts. Dinelyy." %>">
+    <%= stylesheet_link_tag 'application', 'https://fonts.googleapis.com/css?family=Karla:400,400i,700,700i', 'https://fonts.googleapis.com/css?family=Homemade+Apple', 'https://fonts.googleapis.com/icon?family=Material+Icons', media: 'all', 'data-turbolinks-track' => 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => 'reload' %>
+    <%= render "stylesheet" %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <header>
+    <% if user_signed_in? %>
+    <%= render 'layouts/nav_bar_dark' %>    
+    <% end %>
+    </header>
+        <%= render "icons" %>
+          <div class="app-container">
+          <%= render "navigation" -%>
+
+            <main class="main-content" role="main">
+              <%= render "flashes" -%>
+              <%= yield %>
+            </main>
+
+        </div>
+        <%= render "javascript" %>
+        <%= javascript_include_tag "datepicker.js" %>
+        <%= javascript_include_tag "parallax.js" %>
+        <%= javascript_include_tag "isotope.min.js" %>
+        <%= javascript_include_tag "smooth-scroll.min.js" %>
+        <%= javascript_include_tag "scripts.js" %>
+        
+     
+      <%= render 'layouts/footer' %>
+  </body>
+</html>
